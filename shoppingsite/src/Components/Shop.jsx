@@ -3,8 +3,8 @@ import NavBar from './NavBar'
 
 const Shop = () => {
   const [products, setProducts] = useState([])
-  const [cartVisibility,setCartVisibility]=useState()
-  const [cartProducts,setCartProducts]=useState(JSON.parse(localStorage.getItem("product-item")||[]))
+  const [cartVisibility,setCartVisibility]=useState(false)
+  const [cartProducts,setCartProducts]=useState(JSON.parse(localStorage.getItem("product-item"))||[])
   useEffect(() => {
     async function fetchProducts() {
       const response=await fetch('https://fakestoreapi.com/products');
