@@ -3,6 +3,8 @@ import NavBar from './NavBar'
 
 const Shop = () => {
   const [products, setProducts] = useState([])
+  const [cartVisibility,setCartVisibility]=useState()
+  const [cartProducts,setCartProducts]=useState(JSON.parse(localStorage.getItem("product-item")||[]))
   useEffect(() => {
     async function fetchProducts() {
       const response=await fetch('https://fakestoreapi.com/products');
@@ -12,6 +14,18 @@ const Shop = () => {
     }
     fetchProducts()
   }, [])
+  useEffect(()=>{
+   localStorage.setItem("product-item",JSON.stringify(cartProducts))
+  },[cartProducts])
+  const handleCart=(product)=>{
+    const newProduct={
+      ...product,
+      count:1
+    }
+    setCartProducts(newProduct)
+
+  }
+
   return (
     <>
     <NavBar/>
@@ -24,7 +38,7 @@ const Shop = () => {
         <h4 className='product-name'>{product.title}</h4>
         <span className='product-price'>{product.price} $</span>
         <div className='button'>
-          <button>Add To Cart</button>
+          <button onClick={()=>handleCart(product)}>Add To Cart</button>
         </div>
 
         </div>
